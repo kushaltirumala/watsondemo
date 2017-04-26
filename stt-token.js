@@ -13,8 +13,8 @@ var sttConfig = extend(
   {
     version: 'v1',
     url: 'https://stream.watsonplatform.net/speech-to-text/api',
-    username: process.env.STT_USERNAME || '<username>',
-    password: process.env.STT_PASSWORD || '<password>'
+    username: process.env.STT_USERNAME || '11b79bad-6256-40b5-87b6-f6dc26be9a4d',
+    password: process.env.STT_PASSWORD || 'NsH8ioXMxLbU'
   },
   vcapServices.getCredentials('speech_to_text')
 );
