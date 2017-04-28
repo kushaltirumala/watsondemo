@@ -9,22 +9,33 @@
   <script src="bower_components/watson-speech/dist/watson-speech.js"></script>
 <script src="bower_components/fetch/fetch.js"></script>
 
+<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+
 </head>
 <body>
   <div class="container">
 
     <div>
-        <h2>start speaking</h2>
-        <button id="button">Start Microphone Transcription</button>
+      <div style="text-align: center; margin-bottom:40px;">
+        <h1 style="text-align: center;">Watranslate</h1>
+        <button id="button"><a>Start Microphone Transcription</a></button>
         <button id="stop">Stop</button>
 
-        <h2>Output:</h2>
-        <div id="output">--</div>
-        <h2>Translated version</h2>
-        <div id="translated">--</div>
+      </div>
+
+        <div style="float: left; width:50%;">
+          <h2 style="text-align: center;">Output:</h2>
+          <div style="text-align: center;" id="output">--</div>
+        </div>
+
+        <div style="float: right; width:50%">
+          <h2 style="text-align: center;">Translated version | enter lang: <input id="lang" type="text"></h2>
+
+          <div style="text-align: center;" id="translated">--</div>
+        </div>
 
         <h1></h1>
-        <input id="lang" type="text">
+        
     </div>
   </div>
 </body>
@@ -105,7 +116,40 @@ function say(response_text) {
 }
 
 </script>
+<style>
+  body, head {
+    margin:0;
+    font-family: 'Raleway', sans-serif
+  }
 
+  #button {
+      padding: 8px 25px 8px 25px ;
+    border-radius: 30px;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    color:white;
+    background-color: #27ae60
+  }
+  #button:hover {
+    color: #27ae60;
+    background-color: white;
+}
+
+#stop {
+      padding: 8px 25px 8px 25px ;
+    border-radius: 30px;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    color:white;
+    background-color: #27ae60
+  }
+  #stop:hover {
+    color: #27ae60;
+    background-color: white;
+}
+</style>
 
 </html>
 

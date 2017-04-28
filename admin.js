@@ -1,5 +1,3 @@
-
-
 module.exports = {
 	sstusername:"11b79bad-6256-40b5-87b6-f6dc26be9a4d",
 	sstpassword: "NsH8ioXMxLbU",
