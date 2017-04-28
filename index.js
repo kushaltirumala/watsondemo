@@ -1,14 +1,5 @@
 'use strict';
-
-
-// var SpeechToTextV1 = require('watson-developer-cloud/speech-to-text/v1');
-
-
-// var speech_to_text = new SpeechToTextV1({
-//   username: 'INSERT YOUR USERNAME FOR THE SERVICE HERE',
-//   password: 'INSERT YOUR PASSWORD FOR THE SERVICE HERE'
-// });
-
+var auth = require('./admin')
 var watson = require('watson-developer-cloud');
 var express = require('express');
 var app = express();
@@ -16,16 +7,19 @@ var app = express();
 var ssttoken;
 var ttstoken;
 
+/**auth token generations*/
+var sstusername = auth.sstusername;
+var sstpassword = auth.sstpassword;
+var ttsusername = auth.ttsusername;
+var ttspassword = auth.ttspassword;
+
 var language_translator = new watson.LanguageTranslatorV2({
   username: '51a3cbe3-c9eb-48ed-9305-583309808167',
   password: '13iBjrLHGm3Z',
   url: 'https://gateway.watsonplatform.net/language-translator/api/'
 });
 
-var sstusername = "11b79bad-6256-40b5-87b6-f6dc26be9a4d";
-var sstpassword = "NsH8ioXMxLbU";
-var ttsusername = "8008ce76-6c87-4965-9594-1aca084d8bf1";
-var ttspassword = "cV7xH5hsI8YP";
+
 
 var authorization = new watson.AuthorizationV1({
   username: sstusername,

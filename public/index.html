@@ -28,6 +28,17 @@
 
 
 <script>
+
+var voices = {
+  en: "en-GB_KateVoice",
+  es: "es-ES_LauraVoice",
+  de: "de-DE_DieterVoice",
+  fr: "fr-FR_ReneeVoice",
+  it: "it-IT_FrancescaVoice",
+  ja: "ja-JP_EmiVoice",
+  pt: "pt-BR_IsabelaVoice"
+}
+
 var realtoken;
 document.querySelector('#button').onclick = function () {
     $.ajax({
@@ -79,6 +90,7 @@ function say(response_text) {
         //console.log(token);
           WatsonSpeech.TextToSpeech.synthesize({
             text:response_text,
+            voice: "es-ES_LauraVoice",
             token: temptoken
           });
       },
