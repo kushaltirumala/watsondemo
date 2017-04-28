@@ -14,15 +14,29 @@ var express = require('express');
 var app = express();
 
 var ssttoken;
+var ttstoken;
 
+var language_translator = new watson.LanguageTranslatorV2({
+  username: '51a3cbe3-c9eb-48ed-9305-583309808167',
+  password: '13iBjrLHGm3Z',
+  url: 'https://gateway.watsonplatform.net/language-translator/api/'
+});
 
 var sstusername = "11b79bad-6256-40b5-87b6-f6dc26be9a4d";
 var sstpassword = "NsH8ioXMxLbU";
+var ttsusername = "8008ce76-6c87-4965-9594-1aca084d8bf1";
+var ttspassword = "cV7xH5hsI8YP";
 
 var authorization = new watson.AuthorizationV1({
   username: sstusername,
   password: sstpassword,
   url: watson.SpeechToTextV1.URL
+});
+
+var authorization2 = new watson.AuthorizationV1({
+  username: ttsusername,
+  password: ttspassword,
+  url: watson.TextToSpeechV1.URL
 });
 
 app.all('*', function(req, res, next) {
@@ -48,6 +62,42 @@ app.get('/ssttoken', function(req, res){
 		res.send(ssttoken);
 	}
 
+});
+
+
+app.get('/ttstoken', function(req, res){
+	if(!ttstoken) {
+		authorization2.getToken(function (err, token) {
+	  		if (!token) {
+	    		console.log('error:', err);
+	  		} else {
+	  			// console.log('sst token is: ' + ssttoken);
+				res.send(token);
+	    		ttstoken = token;
+	  		}
+		});
+	} else {
+		console.log('it was already created!!');
+		res.send(ttstoken);
+	}
+
+});
+
+
+app.get('/translate', function(req, res){ 
+	var requesttext = req.query.text;
+	language_translator.translate({
+  		text: requesttext, source : 'en', target: 'es' },
+  			function (err, translation) {
+		    if (err) {
+		      console.log('error:', err);
+		    } else {
+		    	var translated = translation.translations[0].translation;
+		      	console.log("the translated version is " + translated);
+		      	res.send(translated);
+		    }
+});
+	
 });
 
 app.use(express.static('public'));

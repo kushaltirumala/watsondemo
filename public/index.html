@@ -2,63 +2,94 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Watson Speech to Text client example</title>
+    <title>Watranslate</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-</head>
-<body>
-<div class="container">
-
-<section>
-    <h2>Transcribe from Microphone</h2>
-    <button id="button">Start Microphone Transcription</button>
-    <button id="stop">Stop</button>
-
-    <h2>Output:</h2>
-    <div id="output">--</div>
-</section>
-
-<script src="bower_components/watson-speech/dist/watson-speech.js"></script>
-<!-- window.fetch pollyfill for IE/Edge & Older Chrome/FireFox -->
+  <script src="bower_components/watson-speech/dist/watson-speech.js"></script>
 <script src="bower_components/fetch/fetch.js"></script>
 
-<h2>Code for this demo:</h2>
+</head>
+<body>
+  <div class="container">
 
-<pre><code><script style="display: block;">
-document.querySelector('#button').onclick = function () {
-  // fetch('/ssttoken')
-  // .then(function(response) {
-  //     console.log(response);
-  // }).then(function(tk) {
-  // 	console.log(tk);
-  // });
-  	$.ajax({
-  		type:"GET",
-  		url:"/ssttoken",
-  		success:function(token){
-  			console.log(token);
-  			    var stream = WatsonSpeech.SpeechToText.recognizeMicrophone({
-       			token: token,
-        		outputElement: '#output' // CSS selector or DOM Element
-    			});
-    			stream.on('error', function(err) {
-        		console.log(err);
-   			 });
-    			document.querySelector('#stop').onclick = function() {
-      				stream.stop();
-    			};
-  		},
-  		error:function(error){
-  			console.log(error);
-  		}
-  	});
+    <div>
+        <h2>start speaking</h2>
+        <button id="button">Start Microphone Transcription</button>
+        <button id="stop">Stop</button>
 
-
-  
-};
-</script></code></pre>
-
-</div>
+        <h2>Output:</h2>
+        <div id="output">--</div>
+        <h2>Translated version</h2>
+        <div id="translated">--</div>
+    </div>
+  </div>
 </body>
+
+
+<script>
+var realtoken;
+document.querySelector('#button').onclick = function () {
+    $.ajax({
+      type:"GET",
+      url:"/ssttoken",
+      success:function(token){
+        console.log(token);
+        realtoken = token;
+            var stream = WatsonSpeech.SpeechToText.recognizeMicrophone({
+            token: token,
+            outputElement: '#output' 
+          });
+          stream.on('error', function(err) {
+            console.log(err);
+         });
+          document.querySelector('#stop').onclick = function() {
+              stream.stop();
+              var text = document.getElementById('output').textContent;
+              translate(text);
+
+          };
+      },
+      error:function(error){
+        console.log(error);
+      }
+    });
+};
+
+function translate(text) {
+  $.ajax({
+      type:"GET",
+      url:"/translate?text="+text,
+      success:function(resp){            
+        console.log(resp);
+        say(resp);
+      },
+      error:function(error){
+        console.log(error);
+      }
+    });
+}
+
+function say(response_text) {
+  document.getElementById("translated").innerHTML=response_text;
+  $.ajax({
+      type:"GET",
+      url:"/ttstoken",
+      success:function(temptoken){
+        //console.log(token);
+          WatsonSpeech.TextToSpeech.synthesize({
+            text:response_text,
+            token: temptoken
+          });
+      },
+      error:function(error){
+        console.log(error);
+      }
+    });
+}
+
+</script>
+
+
 </html>
+
