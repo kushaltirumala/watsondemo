@@ -22,6 +22,9 @@
         <div id="output">--</div>
         <h2>Translated version</h2>
         <div id="translated">--</div>
+
+        <h1></h1>
+        <input id="lang" type="text">
     </div>
   </div>
 </body>
@@ -30,13 +33,13 @@
 <script>
 
 var voices = {
-  en: "en-GB_KateVoice",
-  es: "es-ES_LauraVoice",
-  de: "de-DE_DieterVoice",
-  fr: "fr-FR_ReneeVoice",
-  it: "it-IT_FrancescaVoice",
-  ja: "ja-JP_EmiVoice",
-  pt: "pt-BR_IsabelaVoice"
+  english: "en-GB_KateVoice",
+  spanish: "es-ES_LauraVoice",
+  german: "de-DE_DieterVoice",
+  french: "fr-FR_ReneeVoice",
+  italien: "it-IT_FrancescaVoice",
+  japanese: "ja-JP_EmiVoice",
+  portuguese: "pt-BR_IsabelaVoice"
 }
 
 var realtoken;
@@ -87,10 +90,11 @@ function say(response_text) {
       type:"GET",
       url:"/ttstoken",
       success:function(temptoken){
-        //console.log(token);
+        var temp = document.getElementById("lang").value;
+        var intended_language = voices[temp];
           WatsonSpeech.TextToSpeech.synthesize({
             text:response_text,
-            voice: "es-ES_LauraVoice",
+            voice: intended_language,
             token: temptoken
           });
       },

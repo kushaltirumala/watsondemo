@@ -14,8 +14,8 @@ var ttsusername = auth.ttsusername;
 var ttspassword = auth.ttspassword;
 
 var language_translator = new watson.LanguageTranslatorV2({
-  username: '51a3cbe3-c9eb-48ed-9305-583309808167',
-  password: '13iBjrLHGm3Z',
+  username: auth.translateusername,
+  password: auth.translatepassword,
   url: 'https://gateway.watsonplatform.net/language-translator/api/'
 });
 
