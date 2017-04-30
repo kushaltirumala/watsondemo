@@ -1,0 +1,5 @@
+---
+applications:
+- name:    watranslate
+  command: npm start
+  memory:  512M

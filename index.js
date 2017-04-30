@@ -94,6 +94,9 @@ app.get('/translate', function(req, res){
 	
 });
 
-app.use(express.static('public'));
-app.listen(3000);
+var port = process.env.PORT || 3000;
+
+
+app.use(express.static(__dirname + '/public'));
+app.listen(port);
 console.log('server is listening on 3000');
