@@ -90,8 +90,7 @@ app.get('/translate', function(req, res){
 		      	console.log("the translated version is " + translated);
 		      	res.send(translated);
 		    }
-});
-	
+	});
 });
 
 var port = process.env.PORT || 3000;
