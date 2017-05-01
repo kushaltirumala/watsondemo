@@ -11,5 +11,5 @@ Node.js backend hosted on IBM Bluemix
 
 ## How to host on bluemix
 1) download the Cloud Fountry CLI tool [here](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html). Change your <code>manifest.yml</code> file to contain the right app name (the app name will be your host name i.e hostname.bluemix.net). 
-2) run <code>cf push</code> which should start up the application @ hostname.bluemix.net
+2) run <code>cf push</code> which should start up the application @ hostname.mybluemix.net
 
