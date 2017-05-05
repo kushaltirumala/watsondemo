@@ -80,8 +80,10 @@ app.get('/ttstoken', function(req, res){
 
 app.get('/translate', function(req, res){ 
 	var requesttext = req.query.text;
+	var requestlanguage = req.query.lang;
+	console.log("request language is " + requestlanguage);
 	language_translator.translate({
-  		text: requesttext, source : 'en', target: 'es' },
+  		text: requesttext, source : 'en', target: requestlanguage },
   			function (err, translation) {
 		    if (err) {
 		      console.log('error:', err);

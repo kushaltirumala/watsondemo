@@ -82,9 +82,11 @@ document.querySelector('#button').onclick = function () {
 };
 
 function translate(text) {
+  var temp = document.getElementById("lang").value;
+  var language = temp.substring(0,2);
   $.ajax({
       type:"GET",
-      url:"/translate?text="+text,
+      url:"/translate?text="+text+"&lang="+language,
       success:function(resp){            
         console.log(resp);
         say(resp);
